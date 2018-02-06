@@ -1,0 +1,58 @@
+﻿AppType=StandardJava
+Build1=Default,b4j.example
+Group=Default Group
+Library1=jcore
+Library2=jserver
+Library3=javaobject
+Module1=LWButton
+Module2=BgTask
+Module3=WebApp
+Module4=WebAppEvents
+Module5=Utils
+Module6=MainWebPage
+Module7=Factory
+NumberOfFiles=0
+NumberOfLibraries=3
+NumberOfModules=7
+Version=6
+@EndOfDesignText@
+'Non-UI application (console / server application)
+#Region Project Attributes 
+	#CommandLineArgs:
+	#MergeLibraries: True 
+#End Region
+
+Sub Process_Globals
+	Public srvr As Server
+	Private Webpage As MainWebPage
+	Public LWElements As List
+End Sub
+
+Sub AppStart (Args() As String)
+
+	Webpage.Initialize
+	LWElements = Webpage.LWElements
+	
+	srvr.Initialize("srvr")
+'	srvr.AddBackgroundWorker("BgTask")
+	
+	srvr.AddHandler("", "WebApp", True)
+	srvr.AddWebSocket("/ws", "WebAppEvents")
+	
+	srvr.Port = 51242
+'	srvr.Port = 8080
+	srvr.Start
+	
+
+
+	StartMessageLoop
+
+
+End Sub
+
+'Return true to allow the default exceptions handler to handle the uncaught exception.
+Sub Application_Error (Error As Exception, StackTrace As String) As Boolean
+	Return True
+End Sub
+
+
