@@ -11,9 +11,10 @@ Module4=Utils
 Module5=MainWebPage
 Module6=Factory
 Module7=BgTask
+Module8=LWElement
 NumberOfFiles=0
 NumberOfLibraries=3
-NumberOfModules=7
+NumberOfModules=8
 Version=6
 @EndOfDesignText@
 'Non-UI application (console / server application)

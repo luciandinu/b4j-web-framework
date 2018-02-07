@@ -4,39 +4,46 @@ ModulesStructureVersion=1
 Type=Class
 Version=6
 @EndOfDesignText@
-'Class module
+'----------------------------------------
+'LWF
+'Author: Lucian Dinu https://luciandinu.com
+'Website: https://miranasolutions.com
+'----------------------------------------
+
+'LWButton Class module
 Sub Class_Globals
+	'Public
 	Dim Left As Int = 0 'Default position 'ignore
 	Dim Top As Int = 0 'ignore
 	Dim Width As Int = 100 'Default size 'ignore
 	Dim Height As Int = 32 'ignore
 	Dim InlineCSS As String
 	'---------------------------
-	Private m_Label As String
-	Private m_ID As String
+	'Private
+	Private mLabel As String
+	Private mID As String
 End Sub
 
 'Initializes the object. You can add parameters to this method if needed.
 Public Sub Initialize(Label As String)
-	m_ID = Utils.GenerateWebID 	'Generate a random WebID based on UUID
-	m_Label = Label
-
+	mID = Utils.GenerateWebID 	'Generate a random WebID based on UUID algorithm
+	mLabel = Label
 End Sub
 
 'Returns the web element ID
 Public Sub GetID As String
-	Return m_ID
+	Return mID
 End Sub
 
 Public Sub SetNewID(NewID As String)
-	m_ID = NewID
+	mID = NewID
 End Sub
 
-'Renders the element html representation
-Public Sub RenderHTML As String
+'Builds the element html representation
+Public Sub BuildHTML As String
 	Dim html As String
 	Dim css As String
 	If InlineCSS.Length>0 Then css = $"style='${InlineCSS}'"$
-	html = $"<button id='${m_ID}' ${css}/>${m_Label}</button>${CRLF}"$
+	html = $"<button id='${mID}' ${css}/>${mLabel}</button>${CRLF}"$
 	Return html
 End Sub

@@ -28,7 +28,7 @@ Private Sub writeHTML(WebElementList As List) As String
 	webSB.Initialize
 	'Iterate trought the web elements
 	For Each webElement As Object In WebElementList
-		Dim elHTML As String = CallSub(webElement, "RenderHTML")
+		Dim elHTML As String = CallSub(webElement, "BuildHTML")
 		If elHTML <> Null Then
 			If elHTML.Length >0 Then
 				webSB.Append(elHTML)
