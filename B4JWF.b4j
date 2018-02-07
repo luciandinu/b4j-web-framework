@@ -4,14 +4,14 @@ Group=Default Group
 Library1=jcore
 Library2=jserver
 Library3=javaobject
-Module1=WebApp
-Module2=WebAppEvents
-Module3=LWButton
-Module4=Utils
-Module5=MainWebPage
-Module6=Factory
-Module7=BgTask
-Module8=LWElement
+Module1=LWButton
+Module2=LWElement
+Module3=WebApp
+Module4=WebAppEvents
+Module5=Utils
+Module6=MainWebPage
+Module7=Factory
+Module8=BgTask
 NumberOfFiles=0
 NumberOfLibraries=3
 NumberOfModules=8
@@ -27,18 +27,22 @@ Sub Process_Globals
 	Public srvr As Server
 	Private Webpage As MainWebPage
 	Public LWElements As List
+	Public LWWS As WebSocket
 End Sub
 
 Sub AppStart (Args() As String)
 
-	Webpage.Initialize
-	LWElements = Webpage.LWElements
+
 	
 	srvr.Initialize("srvr")
 '	srvr.AddBackgroundWorker("BgTask")
 	
 	srvr.AddHandler("", "WebApp", True)
 	srvr.AddWebSocket("/ws", "WebAppEvents")
+
+
+	Webpage.Initialize
+	LWElements = Webpage.LWElements
 	
 	srvr.Port = 51242
 '	srvr.Port = 8080

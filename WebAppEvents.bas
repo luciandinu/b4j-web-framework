@@ -8,6 +8,7 @@ Version=6
 Sub Class_Globals
 	Private ws As WebSocket 'ignore
 	Private el As List
+	Dim gigi As LWButton
 End Sub
 
 Public Sub Initialize
@@ -17,8 +18,13 @@ End Sub
 
 Private Sub WebSocket_Connected (MainWebSocket As WebSocket)
 	ws = MainWebSocket
+	Main.LWWS = ws
 	For Each webElement As Object In Main.LWElements
 		If webElement Is LWButton Then
+			Dim tmpBtn As LWButton = webElement
+			If tmpBtn.GetID <> "gigi" Then
+				gigi = tmpBtn
+			End If
 			Log("Got LWButton")
 '			Dim tmpBtn As LWButton = webElement
 '			Dim tmpEl As JQueryElement
@@ -33,6 +39,7 @@ End Sub
 
 Private Sub gigi_Click (Params As Map)
 	Log(Params)
+	gigi.Shake
 End Sub
 
 

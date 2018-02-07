@@ -22,6 +22,7 @@ Sub Class_Globals
 	'Private
 	Private mLabel As String
 	Private mID As String
+	Private mWS As WebSocket
 End Sub
 
 'Initializes the object. You can add parameters to this method if needed.
@@ -35,6 +36,10 @@ Public Sub GetID As String
 	Return mID
 End Sub
 
+Public Sub SetWS(WS As WebSocket)
+	mWS = WS
+End Sub
+
 Public Sub SetNewID(NewID As String)
 	mID = NewID
 End Sub
@@ -46,4 +51,9 @@ Public Sub BuildHTML As String
 	If InlineCSS.Length>0 Then css = $"style='${InlineCSS}'"$
 	html = $"<button id='${mID}' ${css}/>${mLabel}</button>${CRLF}"$
 	Return html
+End Sub
+
+
+Public Sub Shake
+	Main.LWWS.Eval($"$('#${mID}').effect('shake');"$, Null)
 End Sub

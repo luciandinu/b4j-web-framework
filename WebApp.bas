@@ -47,11 +47,13 @@ $"<!DOCTYPE html>
   <title>WebApp test</title>
      <meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
     <link rel="shortcut icon" href="/favicon.ico" />
+	<script src="/jquery.js"></script>
+    <script src="/b4j_ws.js"></script>
+	<script src="/jquery-ui.js"></script>
 </head>
 <body >	
 ${webSB.ToString}
-    <script src="/jquery.js"></script> //load jquery
-    <script src="/b4j_ws.js"></script>	//load b4j websocket
+
     <script>
     //connect To the web socket when the page Is ready.
     $( document ).ready(function() {

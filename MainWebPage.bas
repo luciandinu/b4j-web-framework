@@ -24,6 +24,9 @@ Private Sub buildWebApp
 	b.Initialize("mylabel2")
 	b.InlineCSS = "border: 12px solid #adadad;"
 
+	a.SetWS(Main.LWWS)
+	b.SetWS(Main.LWWS)
+
 	LWElements.Add(a)
 	LWElements.Add(b)
 End Sub
