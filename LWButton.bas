@@ -1,5 +1,5 @@
 ﻿B4J=true
-Group=Default Group
+Group=LWF
 ModulesStructureVersion=1
 Type=Class
 Version=6
@@ -20,6 +20,7 @@ End Sub
 Public Sub Initialize(Label As String)
 	m_ID = Utils.GenerateWebID 	'Generate a random WebID based on UUID
 	m_Label = Label
+
 End Sub
 
 'Returns the web element ID
