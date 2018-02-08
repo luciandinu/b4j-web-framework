@@ -35,10 +35,9 @@ End Sub
 Sub AppStart (Args() As String)
 
 
-	
 	srvr.Initialize("srvr")
-'	srvr.AddBackgroundWorker("BgTask")
-	
+'	srvr.AddBackgroundWorker("BgTask") 'testing
+
 	srvr.AddHandler("", "WebApp", True)
 	srvr.AddFilter("/b4j_ws.js", "SessionCreator", False)
 	srvr.AddWebSocket("/ws", "WebAppEvents")
@@ -48,13 +47,10 @@ Sub AppStart (Args() As String)
 	LWElements = Webpage.LWElements
 	
 	srvr.Port = 51242
-'	srvr.Port = 8080
 	srvr.Start
 	
 
-
 	StartMessageLoop
-
 
 End Sub
 

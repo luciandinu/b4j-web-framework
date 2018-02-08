@@ -53,15 +53,14 @@ End Sub
 
 'Register all events
 Private Sub registerEvents
-	AddClickEvent
+	addClickEvent
 End Sub
 
 
 'Add a click event to any element on the page
-Private Sub AddClickEvent
+Private Sub addClickEvent
 	Dim sb As StringBuilder
 	sb.Initialize
-'	sb.Append("<script>")
 	sb.Append($"$(function() {"$)
 	sb.Append($"$('#${ID}').click(function(){"$)
 '	sb.Append("event.stopPropagation();")
@@ -69,10 +68,6 @@ Private Sub AddClickEvent
 	sb.Append($"b4j_raiseEvent('WebApp_Click', {'Id':'${ID}', 'Event': '${mEventName}'});"$)
 	sb.Append("});")
 	sb.Append("});")
-'	sb.Append("</script>")
 	EventsShared.WS.Eval(sb.ToString, Null)
 End Sub
 
-Private Sub bla_Click(value As Map)
-	Log("bla")
-End Sub

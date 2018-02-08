@@ -7,6 +7,5 @@ Version=6
 
 Sub Process_Globals
 	Public WS As WebSocket	'ignore
-	Public IS_ALREADY_CONNECTED As Boolean = False
 End Sub
 

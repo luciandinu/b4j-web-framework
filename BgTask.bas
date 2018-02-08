@@ -19,12 +19,4 @@ End Sub
 Sub Timer1_Tick
 	'do the work required
 '	Log("BgTask")
-	Try
-		If EventsShared.IS_ALREADY_CONNECTED Then
-			EventsShared.WS.Close
-		End If
-
-	Catch
-		'Log(LastException)
-	End Try
 End Sub

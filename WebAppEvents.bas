@@ -18,19 +18,7 @@ End Sub
 Private Sub WebSocket_Connected (MainWebSocket As WebSocket)
 	WS = MainWebSocket
 	EventsShared.WS = WS
-	EventsShared.IS_ALREADY_CONNECTED = True
 '	WS.Session.MaxInactiveInterval = 2
-
-
-'	Dim session As HttpSession = WS.UpgradeRequest.GetSession
-'	If session.HasAttribute("active") = False Then 
-'		session.SetAttribute("active", "yes") 'sets a reference to the state object.
-'		Log("WS Connected!")
-'		registerEvents
-'	Else
-'			session.RemoveAttribute("state")
-'	End If
-
 
 '	Dim session As HttpSession = WS.UpgradeRequest.GetSession
 '	If session.HasAttribute("state") = False Then
@@ -52,7 +40,6 @@ End Sub
 
 Private Sub WebSocket_Disconnected
 	Log("WS Disconnected!")
-	EventsShared.IS_ALREADY_CONNECTED = False
 End Sub
 
 'Register all events
