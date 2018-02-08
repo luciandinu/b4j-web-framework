@@ -12,11 +12,12 @@ End Sub
 'Initializes the object. You can add parameters to this method if needed.
 Public Sub Initialize
 	LWElements.Initialize 'Initialize the list of web elements
-	generateHTMLLayout
+	PageHTMLLayout
 End Sub
 
-
-Private Sub generateHTMLLayout
+'Create the webapp page layout
+'Define all the necessary web elements here
+Sub PageHTMLLayout
 	Dim a As LWButton = Factory.CreateLWButtonWithID(Me, "gigisor","gigi", "gigi button")
 	a.InlineCSS = "border: 2px solid #ededed;"
 
