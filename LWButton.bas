@@ -65,7 +65,7 @@ Private Sub addClickEvent
 	sb.Append($"$('#${ID}').click(function(){"$)
 '	sb.Append("event.stopPropagation();")
 '	sb.Append($"console.log('click event ${ID} ; ${mEventName}');"$)
-	sb.Append($"b4j_raiseEvent('WebApp_Click', {'Id':'${ID}', 'Event': '${mEventName}'});"$)
+	sb.Append($"b4j_raiseEvent('processWebApp_Events', {'Id':'${ID}', 'EventName': '${mEventName}', 'EventType':'Click'});"$)
 	sb.Append("});")
 	sb.Append("});")
 	EventsShared.WS.Eval(sb.ToString, Null)

@@ -29,10 +29,12 @@ Private Sub generateHTMLLayout
 End Sub
 
 
-Private Sub gigisor_Click
+Private Sub gigisor_Click(Params As Map)
 	Log("Gigisor!")
+	Log(Params)
 End Sub
 
-Private Sub mylabel_Click
+Private Sub mylabel_Click(Params As Map)
 	Log("mylabel click!")
+	Log(Params)
 End Sub

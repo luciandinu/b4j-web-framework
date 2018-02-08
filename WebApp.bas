@@ -14,15 +14,11 @@ Public Sub Initialize
 End Sub
 
 Sub Handle(req As ServletRequest, resp As ServletResponse)
-
-	
-	resp.Write(writeHTML(Main.LWElements))
-	
-'	resp.Write(a.RenderHTML)
+	resp.Write(generateHTMLLayout(Main.LWElements))
 End Sub
 
 
-Private Sub writeHTML(WebElementList As List) As String
+Private Sub generateHTMLLayout(WebElementList As List) As String
 	Dim returnHTML As String
 	Dim webSB As StringBuilder
 	webSB.Initialize
@@ -55,14 +51,12 @@ $"<!DOCTYPE html>
 </head>
 <body >	
 ${webSB.ToString}
-
     <script>
     //connect To the web socket when the page Is ready.
     $( document ).ready(function() {
         b4j_connect("/ws");
 
     });
-		
     </script>
 </body>
 </html>

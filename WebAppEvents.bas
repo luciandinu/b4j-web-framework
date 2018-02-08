@@ -8,7 +8,7 @@ Version=6
 Sub Class_Globals
 	Private WS As WebSocket 'ignore
 	Type UUIDState (ID As String)
-	Private SState As UUIDState
+'	Private SState As UUIDState
 End Sub
 
 Public Sub Initialize
@@ -48,18 +48,15 @@ Private Sub registerEvents
 		If SubExists(webElement, "registerEvents") Then
 			CallSub(webElement, "registerEvents")
 		End If
-'		If webElement Is LWButton Then
-'			Dim tmpBtn As LWButton = webElement
-'			CallSub(tmpBtn, "registerEvents")
-'		End If
 	Next
 End Sub
 
-'Forward Click events
-Private Sub WebApp_Click(Params As Map)
-	Dim eV As String = Params.Get("Event") & "_Click"
-	If SubExists(Main.Webpage, eV) Then
-		CallSub(Main.Webpage, Params.Get("Event") & "_Click")
+'Forward/process WebApp events
+Private Sub processWebApp_Events(Params As Map)
+	Dim eVType As String = Params.Get("EventType")
+	Dim eVName As String = Params.Get("EventName") & "_" & eVType
+	If SubExists(Main.Webpage, eVName) Then
+		CallSub2(Main.Webpage, eVName, Params)
 	End If
 
 End Sub
