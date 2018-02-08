@@ -28,7 +28,7 @@ Private Sub writeHTML(WebElementList As List) As String
 	webSB.Initialize
 	'Iterate trought the web elements
 	For Each webElement As Object In WebElementList
-		Dim elHTML As String = CallSub(webElement, "BuildHTML")
+		Dim elHTML As String = CallSub(webElement, "HTML")
 		If elHTML <> Null Then
 			If elHTML.Length >0 Then
 				webSB.Append(elHTML)
@@ -44,11 +44,13 @@ Private Sub writeHTML(WebElementList As List) As String
 $"<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <title>WebApp test</title>
-     <meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
-    <link rel="shortcut icon" href="/favicon.ico" />
+	<title>WebApp test</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
+	<meta http-equiv="Pragma" content="no-cache">
+	<link rel="shortcut icon" href="/favicon.ico" />
 	<script src="/jquery.js"></script>
-    <script src="/b4j_ws.js"></script>
+	<script src="/b4j_ws.js"></script>
+	<script src="/reconnecting-websocket.js"></script> 
 	<script src="/jquery-ui.js"></script>
 </head>
 <body >	
@@ -60,6 +62,7 @@ ${webSB.ToString}
         b4j_connect("/ws");
 
     });
+		
     </script>
 </body>
 </html>

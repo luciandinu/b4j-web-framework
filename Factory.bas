@@ -10,9 +10,9 @@ Sub Process_Globals
 End Sub
 
 
-Public Sub CreateLWButtonWithID(ID As String, Label As String) As LWButton
+Public Sub CreateLWButtonWithID(CallBack As Object, EventName As String, ID As String, Label As String) As LWButton
 	Dim mButton As LWButton
-	mButton.Initialize(Label)
-	mButton.SetNewID(ID)
+	mButton.Initialize(CallBack, EventName, Label)
+	mButton.ID = ID
 	Return mButton
 End Sub

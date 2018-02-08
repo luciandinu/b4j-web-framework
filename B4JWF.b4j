@@ -4,17 +4,19 @@ Group=Default Group
 Library1=jcore
 Library2=jserver
 Library3=javaobject
-Module1=LWButton
-Module2=LWElement
-Module3=WebApp
-Module4=WebAppEvents
-Module5=Utils
-Module6=MainWebPage
-Module7=Factory
-Module8=BgTask
+Module1=LWElement
+Module10=SessionCreator
+Module2=WebApp
+Module3=MainWebPage
+Module4=Factory
+Module5=WebAppEvents
+Module6=LWButton
+Module7=EventsShared
+Module8=Utils
+Module9=BgTask
 NumberOfFiles=0
 NumberOfLibraries=3
-NumberOfModules=8
+NumberOfModules=10
 Version=6
 @EndOfDesignText@
 'Non-UI application (console / server application)
@@ -25,7 +27,7 @@ Version=6
 
 Sub Process_Globals
 	Public srvr As Server
-	Private Webpage As MainWebPage
+	Public Webpage As MainWebPage
 	Public LWElements As List
 	Public LWWS As WebSocket
 End Sub
@@ -38,6 +40,7 @@ Sub AppStart (Args() As String)
 '	srvr.AddBackgroundWorker("BgTask")
 	
 	srvr.AddHandler("", "WebApp", True)
+	srvr.AddFilter("/b4j_ws.js", "SessionCreator", False)
 	srvr.AddWebSocket("/ws", "WebAppEvents")
 
 
