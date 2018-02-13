@@ -6,6 +6,6 @@ Version=6
 @EndOfDesignText@
 
 Sub Process_Globals
-	Public WS As WebSocket	'ignore
+
 End Sub
 

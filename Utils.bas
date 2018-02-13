@@ -10,10 +10,17 @@ Sub Process_Globals
 End Sub
 
 'Generates a random WebID and returns the string representation
-Sub GenerateWebID As String
+Sub GenerateWebID As String 'ignore
 	Dim jObject As JavaObject
 	jObject = jObject.InitializeStatic("java.util.UUID")
 	jObject = jObject.RunMethod("randomUUID", Null)
 	Dim rString As String = jObject.RunMethod("toString", Null)
 	Return rString.Replace("-", "_")
+End Sub
+
+Sub GetPackageName As String 'ignore
+	Dim joBA As JavaObject
+	joBA.InitializeStatic("anywheresoftware.b4a.BA")
+	Log(joBA)
+	Return joBA.GetField("packageName")
 End Sub

@@ -15,17 +15,20 @@ End Sub
 
 Public Sub Initialize
 	mPageController.Initialize
+	
 	aButton.Initialize(Me, "bla", "blabla")
 	aButton.InlineCSS = "border: 2px solid #ededed;"
-aButton.Left = 2
+	aButton.Left = 2
+	
+	mPageController.AddElement(aButton)
 End Sub
 
 Private Sub WebSocket_Connected (WS As WebSocket)
 	mWS = WS
 	Log("WS Connected!")
+
 	mPageController.SetWS(mWS)
 	
-	mPageController.AddElement(aButton)
 	
 	LWAppShared.PageContent = aButton.HTML
 	If LWAppShared.PAGEISNEW Then mWS.Eval("location.reload();",Null)

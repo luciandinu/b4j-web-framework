@@ -1,5 +1,5 @@
 ﻿B4J=true
-Group=Default Group
+Group=LWF
 ModulesStructureVersion=1
 Type=Class
 Version=6

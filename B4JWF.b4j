@@ -4,52 +4,47 @@ Group=Default Group
 Library1=jcore
 Library2=jserver
 Library3=javaobject
-Module1=LWElement
-Module10=Utils
-Module2=WebApp
-Module3=MainWebPage
-Module4=Factory
-Module5=WebAppEvents
-Module6=LWButton
-Module7=EventsShared
-Module8=BgTask
-Module9=SessionCreator
+Module1=LWAppShared
+Module10=MainPage
+Module2=Utils
+Module3=WebApp
+Module4=LWButton
+Module5=LWElement
+Module6=Factory
+Module7=BgTask
+Module8=SessionCreator
+Module9=LWPageController
 NumberOfFiles=0
 NumberOfLibraries=3
 NumberOfModules=10
 Version=6
 @EndOfDesignText@
 'Non-UI application (console / server application)
+'LibraryVersion - A number that represents the library version. This number will appear Next To the library name in the libraries list.
+'LibraryAuthor - The library author. This value Is added To the library xml File.
+'LibraryName (B4A v2.70) - The compiled library name. Sets the library name instead of showing the save dialog.
 #Region Project Attributes 
 	#CommandLineArgs:
 	#MergeLibraries: True 
+	#LibraryVersion: 1.0
+	#LibraryName: jLWF
+	#LibraryAuthor: Lucian Dinu https://luciandinu.com
 #End Region
 
 Sub Process_Globals
-	Public srvr As Server
-	Public Webpage As MainWebPage
-	Public LWElements As List
-	Public LWWS As WebSocket
+
 End Sub
 
 Sub AppStart (Args() As String)
+ 
+ 
+	LWAppShared.InitApp
 
-
-	srvr.Initialize("srvr")
-'	srvr.AddBackgroundWorker("BgTask") 'testing
-
-	srvr.AddHandler("", "WebApp", True)
-	srvr.AddFilter("/b4j_ws.js", "SessionCreator", False)
-	srvr.AddWebSocket("/ws", "WebAppEvents")
-
-
-	Webpage.Initialize
-	LWElements = Webpage.LWElements
+	LWAppShared.Title = "Gigi"
+'	LWAppShared.RegisterPage("MainPage",APage)
+	LWAppShared.StartApp
 	
-	srvr.Port = 51242
-	srvr.Start
 	
-
 	StartMessageLoop
 
 End Sub
@@ -57,6 +52,6 @@ End Sub
 'Return true to allow the default exceptions handler to handle the uncaught exception.
 Sub Application_Error (Error As Exception, StackTrace As String) As Boolean
 	Return True
-End Sub
 
+End Sub
 
