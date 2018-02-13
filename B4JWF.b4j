@@ -4,19 +4,17 @@ Group=Default Group
 Library1=jcore
 Library2=jserver
 Library3=javaobject
-Module1=LWAppShared
-Module10=MainPage
-Module2=Utils
-Module3=WebApp
-Module4=LWButton
-Module5=LWElement
-Module6=Factory
-Module7=BgTask
-Module8=SessionCreator
-Module9=LWPageController
+Module1=MainPageHandle
+Module2=LWButton
+Module3=LWPage
+Module4=LWElement
+Module5=Factory
+Module6=SessionCreator
+Module7=LWApp
+Module8=LWUtils
 NumberOfFiles=0
 NumberOfLibraries=3
-NumberOfModules=10
+NumberOfModules=8
 Version=6
 @EndOfDesignText@
 'Non-UI application (console / server application)
@@ -32,19 +30,15 @@ Version=6
 #End Region
 
 Sub Process_Globals
-
+	Dim webApp As LWApp
 End Sub
 
 Sub AppStart (Args() As String)
  
- 
-	LWAppShared.InitApp
-
-	LWAppShared.Title = "Gigi"
-'	LWAppShared.RegisterPage("MainPage",APage)
-	LWAppShared.StartApp
-	
-	
+	webApp.Initialize
+	webApp.Title = "My super WebApp"
+	webApp.RegisterPageHandler("/" , "MainPageHandle")
+	webApp.Start
 	StartMessageLoop
 
 End Sub

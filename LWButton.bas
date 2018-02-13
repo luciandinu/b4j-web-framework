@@ -26,20 +26,19 @@ Sub Class_Globals
 	Private mLabel As String
 	Private mCallBack As Object 'ignore
 	Private mEventName As String 'ignore
-	Private isNew As Boolean = True 'ignore
-	Private mPageController As LWPageController
+	Private mPageController As LWPage
 End Sub
 
 'Initializes the object. You can add parameters to this method if needed.
 Public Sub Initialize(CallBack As Object, EventName As String, Label As String)
 	mCallBack = CallBack
 	mEventName = EventName
-'	ID = Utils.GenerateWebID 	'Generate a random WebID based on UUID algorithm
+'	ID = LWUtils.GenerateWebID 	'Generate a random WebID based on UUID algorithm
 	ID = "lw-" & EventName.ToLowerCase
 	mLabel = Label
 End Sub
 
-Public Sub SetPC(PageController As LWPageController)
+Public Sub SetPC(PageController As LWPage)
 	mPageController = PageController
 End Sub
 
