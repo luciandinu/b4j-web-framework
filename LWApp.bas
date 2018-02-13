@@ -45,7 +45,7 @@ Public Sub RegisterPageHandler(URLToHandle As String, ClassName As String)
 	If mRoute = "/" Or mRoute = "\" Or mRoute = "" Then
 		mRoute = ""
 	End If
-'	LWServer.AddHandler("/*","", True)
-	LWServer.AddWebSocket("/ws", ClassName)
+
+	LWServer.AddWebSocket(mRoute & "/ws", ClassName)
 End Sub
 
