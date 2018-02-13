@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title></title>
+	<title>My super WebApp - My maine page</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
-	<!-- <meta http-equiv="Pragma" content="no-cache"> -->
+	<meta http-equiv="Pragma" content="no-cache">
 	<link rel="shortcut icon" href="/favicon.ico" />
-	<script src="/jquery.js"></script>
-	<script src="/b4j_ws.js"></script>
-	<script src="/reconnecting-websocket.js"></script> 
-	<script src="/jquery-ui.js"></script>
 </head>
 <body>	
 <div id="lw-app" style="position:absolute;">
-<button id="lw-bla" style='position: fixed; left: 2px;border: 2px solid #ededed;'/>blabla</button>
+<button id="lw-button-bla" style='position: fixed; left: 2px;border: 2px solid #ededed;'/>blabla</button>
 
 </div>
+	<script src="/jquery.js"></script>
+	<script src="/reconnecting-websocket.js"></script> 
+	<script src="/b4j_ws.js"></script>
+
+	<script src="/jquery-ui.js"></script>
     <script>
     //connect To the web socket when the page Is ready.
     $( document ).ready(function() {
         b4j_connect("/ws");
-
     });
     </script>
 </body>

@@ -12,40 +12,52 @@ Version=6
 '----------------------------------------
 Sub Class_Globals
 	Public LWServer As Server
-	Public LWElements As List
 	Public LWPages As Map
+	'The title of the app
 	Public Title As String
-	Public PageContent As String
-	Public PAGEISNEW = True As Boolean
-	Private mPort As Double = 52245 
+	'Private
+	Private mPort As Double = 52245
+	Private mStaticFilesFolder As String = "www"
+	
 End Sub
 
-'Initializes the object. You can add parameters to this method if needed.
+'Initializes the app
 Public Sub Initialize
+	LWPages.Initialize
 	LWServer.Initialize("srvr")
 	LWServer.Port = mPort
-	LWElements.Initialize
+	Log(LWServer.StaticFilesFolder)
 	LWServer.SetStaticFilesOptions(CreateMap("cacheControl": "max-age=604800,public","gzip":True,"dirAllowed":False))
 End Sub
 
-
-
+'Start the app
 Public Sub Start
 	LWServer.Start
 End Sub
 
-
-Public Sub SetServerPort(Port As Int)
+'Set the app server port
+Public Sub AppServerPort(Port As Int)
 	mPort = Port
 	LWServer.Port = mPort
 End Sub
 
+
+'Register a handler for a web page
+'URLToHandle = url that the page handles
+'ClassName = websocket class to handle requests
 Public Sub RegisterPageHandler(URLToHandle As String, ClassName As String)
 	Dim mRoute As String = URLToHandle
 	If mRoute = "/" Or mRoute = "\" Or mRoute = "" Then
 		mRoute = ""
 	End If
-
+	'We keep a record of pages
+	Dim tmpKey As String
+	If mRoute = "" Then 
+		tmpKey = "[root]"
+	Else
+		tmpKey = mRoute
+	End If
+	LWPages.Put(tmpKey, ClassName)
 	LWServer.AddWebSocket(mRoute & "/ws", ClassName)
 End Sub
 

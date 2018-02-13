@@ -16,13 +16,14 @@ Sub Class_Globals
 	'Public
 	Dim ID As String
 
-	Dim Width As Int = 100 'Default size 'ignore
-	Dim Height As Int = 32 'ignore
+
 	Dim InlineCSS As String
 	'---------------------------
 	'Private
-	Private mLeft As Int = 0 'Default position 'ignore
-	Private mTop As Int = 0 'ignore
+	Private mPosition As LWElementPosition 'Default position 'ignore
+	Private mSize As LWElementSize 'ignore
+	Dim mWidth As Int = 100 'Default size 'ignore
+	Dim mHeight As Int = 32 'ignore
 	Private mLabel As String
 	Private mCallBack As Object 'ignore
 	Private mEventName As String 'ignore
@@ -30,12 +31,17 @@ Sub Class_Globals
 End Sub
 
 'Initializes the object. You can add parameters to this method if needed.
-Public Sub Initialize(CallBack As Object, EventName As String, Label As String)
+Public Sub Initialize(CallBack As Object, EventName As String, TextLabel As String)
 	mCallBack = CallBack
 	mEventName = EventName
+	
 '	ID = LWUtils.GenerateWebID 	'Generate a random WebID based on UUID algorithm
-	ID = "lw-" & EventName.ToLowerCase
-	mLabel = Label
+	ID = "lw-button-" & EventName.ToLowerCase
+	mLabel = TextLabel
+	
+	'Default position and size
+	mPosition = LWAppGlobals.FactorPosition(0,0)
+	mSize = LWAppGlobals.FactorSize(36, 140)
 End Sub
 
 Public Sub SetPC(PageController As LWPage)
@@ -47,7 +53,7 @@ Public Sub HTML As String
 	Dim rHTML As String
 	Dim css As String
 	Dim cssEl As String
-	cssEl = $"position: fixed; left: ${mLeft}px;"$ 
+	cssEl = $"position: fixed; left: ${mPosition.Left}px;"$ 
 	If InlineCSS.Length>0 Then css = $"style='${cssEl & InlineCSS}'"$
 	rHTML = $"<button id="${ID}" ${css}/>${mLabel}</button>${CRLF}"$
 	Return rHTML
@@ -62,29 +68,29 @@ End Sub
 
 'Left positon
 Public Sub setLeft(aLeft As Int)
-	mLeft = aLeft
+	mPosition.Left = aLeft
 	If mPageController.IsInitialized Then
-		mPageController.JSEval($"$('#${ID}').css('left', ${mLeft});"$)
+		mPageController.JSEval($"$('#${ID}').css('left', ${mPosition.Left});"$)
 	End If
 
 
 End Sub
 
 Public Sub getLeft As Int
-	Return mLeft
+	Return mPosition.Left
 End Sub
 
 'Top positon
 Public Sub setTop(aTop As Int)
-	mTop = aTop
+	mPosition.Top = aTop
 	If mPageController.IsInitialized Then
-		mPageController.JSEval($"$('#${ID}').css('top', ${mTop});"$)		
+		mPageController.JSEval($"$('#${ID}').css('top', ${mPosition.Top});"$)		
 	End If
 
 End Sub
 
 Public Sub getTop As Int
-	Return mTop
+	Return mPosition.Top
 End Sub
 
 'Label of the button
@@ -112,7 +118,7 @@ Private Sub addClickEvent
 '	sb.Append($"$('#${ID}').click(function(){"$)
 	sb.Append($"$('#${ID}').on('click', function(){"$)
 '	sb.Append("event.stopPropagation();")
-	sb.Append($"console.log('click event ${ID} ; ${mEventName}');"$)
+	If LWAppGlobals.DebugMessages Then sb.Append($"console.log('[Click event] Id: ${ID} ; EventName: ${mEventName}');"$)
 	sb.Append($"b4j_raiseEvent('WebSocket_Events', {'Id':'${ID}', 'EventName': '${mEventName}', 'EventType':'Click'});"$)
 	sb.Append("});")
 	sb.Append("});")
@@ -124,4 +130,3 @@ End Sub
 Public Sub AppendTo(WebElements As List)
 	WebElements.Add(Me)
 End Sub
-

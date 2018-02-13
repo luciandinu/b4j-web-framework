@@ -18,15 +18,23 @@ Sub Class_Globals
 	Private mWS As WebSocket
 	Private mElements As List
 	Private isNew = True As Boolean
+	Private isGenerated = False As Boolean
+	Private mApp As LWApp
 End Sub
 
 'Initializes the object. You can add parameters to this method if needed.
-Public Sub Initialize
+Public Sub Initialize(WebApp As LWApp)
+	mApp = WebApp
 	mElements.Initialize
 End Sub
 
 Public Sub SetWS(WS As WebSocket)
 	mWS = WS
+'	If isGenerated And Not(isNew) Then 
+'		mWS.Eval("location.reload();",Null)
+'		isGenerated = False
+'	End If
+	
 End Sub
 
 
@@ -64,8 +72,9 @@ End Sub
 Public Sub Prepare
 	If isNew Then
 		Dim rHTML As String = generateHTMLLayout(mElements)
-	 File.WriteString(File.DirApp & "/www", "index.html", rHTML)
+	 File.WriteString(mApp.LWServer.StaticFilesFolder, "index.html", rHTML)
 	 isNew = False
+	 isGenerated = True
 	End If
 End Sub
 
@@ -89,24 +98,24 @@ Private Sub generateHTMLLayout(WebElementList As List) As String
 $"<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>${Title}</title>
+	<title>${mApp.Title & " - " & Title}</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
-	<!-- <meta http-equiv="Pragma" content="no-cache"> -->
+	<meta http-equiv="Pragma" content="no-cache">
 	<link rel="shortcut icon" href="/favicon.ico" />
-	<script src="/jquery.js"></script>
-	<script src="/b4j_ws.js"></script>
-	<script src="/reconnecting-websocket.js"></script> 
-	<script src="/jquery-ui.js"></script>
 </head>
 <body>	
 <div id="lw-app" style="position:absolute;">
 ${webSB.ToString}
 </div>
+	<script src="/jquery.js"></script>
+	<script src="/reconnecting-websocket.js"></script> 
+	<script src="/b4j_ws.js"></script>
+
+	<script src="/jquery-ui.js"></script>
     <script>
     //connect To the web socket when the page Is ready.
     $( document ).ready(function() {
         b4j_connect("/ws");
-
     });
     </script>
 </body>

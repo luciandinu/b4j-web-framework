@@ -15,7 +15,8 @@ Sub Class_Globals
 End Sub
 
 Public Sub Initialize
-	mPage.Initialize
+	mPage.Initialize(Main.webApp)
+	mPage.Title = "My maine page"
 	
 	aButton.Initialize(Me, "bla", "blabla")
 	aButton.InlineCSS = "border: 2px solid #ededed;"
@@ -29,14 +30,8 @@ Private Sub WebSocket_Connected (WS As WebSocket)
 	mWS = WS
 	Log("WS Connected!")
 
-	mPage.SetWS(mWS)
-	
-	
-'	LWAppShared.PageContent = aButton.HTML
-'	If LWAppShared.PAGEISNEW Then mWS.Eval("location.reload();",Null)
-	
-	'Registering events
-	mPage.RegisterEvents
+	mPage.SetWS(mWS) 'Set WS
+	mPage.RegisterEvents 'Registering events
 End Sub
 
 Private Sub WebSocket_Disconnected
@@ -51,7 +46,7 @@ End Sub
 
 Private Sub bla_Click(Params As Map)
 	Log(Params)
-'	aButton.Shake
+	aButton.Shake
 	aButton.Label = "Bla " & Rnd(30, 1200)
-	aButton.Left = Rnd(0, 200)
+'	aButton.Left = Rnd(0, 200)
 End Sub
