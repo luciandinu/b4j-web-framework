@@ -17,7 +17,6 @@ Sub Class_Globals
 	Public Title As String
 	'Private
 	Private mPort As Double = 52245
-	Private mStaticFilesFolder As String = "www"
 	
 End Sub
 

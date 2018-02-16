@@ -4,19 +4,21 @@ Group=Default Group
 Library1=jcore
 Library2=jserver
 Library3=javaobject
+Library4=threading
 Module1=MainPageHandle
-Module2=LWButton
-Module3=LWUtils
+Module10=LWPopup
+Module2=LWUtils
+Module3=LWApp
 Module4=LWPage
-Module5=LWApp
+Module5=LWButton
 Module6=LWAppGlobals
 Module7=LWElement
 Module8=Factory
 Module9=SessionCreator
 NumberOfFiles=0
-NumberOfLibraries=3
-NumberOfModules=9
-Version=6.01
+NumberOfLibraries=4
+NumberOfModules=10
+Version=6
 @EndOfDesignText@
 'Non-UI application (console / server application)
 'LibraryVersion - A number that represents the library version. This number will appear Next To the library name in the libraries list.
@@ -37,7 +39,8 @@ End Sub
 Sub AppStart (Args() As String)
  	'Set this to view debug information
  	LWAppGlobals.DebugMessages = True
-	
+
+
 	webApp.Initialize
 	webApp.Title = "My super WebApp"
 	webApp.RegisterPageHandler("/" , "MainPageHandle")

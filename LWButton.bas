@@ -4,14 +4,14 @@ ModulesStructureVersion=1
 Type=Class
 Version=6
 @EndOfDesignText@
-#Event: Click
+#Event: Click(Params As Map)
 '----------------------------------------
 'LWF - Lightweight Web Framework
 'Author: Lucian Dinu https://luciandinu.com
 'Website: https://miranasolutions.com
 '----------------------------------------
 
-'LWButton Class module
+'Button Web Component
 Sub Class_Globals
 	'Public
 	Dim ID As String
@@ -22,15 +22,17 @@ Sub Class_Globals
 	'Private
 	Private mPosition As LWElementPosition 'Default position 'ignore
 	Private mSize As LWElementSize 'ignore
-	Dim mWidth As Int = 100 'Default size 'ignore
-	Dim mHeight As Int = 32 'ignore
 	Private mLabel As String
+	Private mValue As String
 	Private mCallBack As Object 'ignore
 	Private mEventName As String 'ignore
 	Private mPageController As LWPage
 End Sub
 
-'Initializes the object. You can add parameters to this method if needed.
+'Initializes the button web component
+'CallBack = calback object
+'EventName = event prefix
+'TextLabel = the text of the button
 Public Sub Initialize(CallBack As Object, EventName As String, TextLabel As String)
 	mCallBack = CallBack
 	mEventName = EventName
@@ -93,6 +95,11 @@ Public Sub getTop As Int
 	Return mPosition.Top
 End Sub
 
+Public Sub SetPosition(aLeft As Int, aTop As Int)
+	setLeft(aLeft)
+	setTop(aTop)
+End Sub
+
 'Label of the button
 Public Sub setLabel(aLabel As String)
 	mLabel = aLabel
@@ -102,6 +109,19 @@ End Sub
 Public Sub getLabel As String
 	Return mLabel
 End Sub
+
+
+'Value attribute for button
+'Value is a string type conversion is needed for numbers
+Public Sub setValue(aValue As String)
+	mLabel = aValue
+	mPageController.JSEval($"$('#${ID}').ptop('value', '${mValue}');"$)
+End Sub
+
+Public Sub getValue As String
+	Return mValue
+End Sub
+
 
 'Register all events
 Private Sub registerEvents

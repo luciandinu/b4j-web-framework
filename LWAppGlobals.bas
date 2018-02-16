@@ -13,6 +13,7 @@ Sub Process_Globals
 	Type LWElementPosition (Left As Int, Top As Int)
 	Type LWElementSize(Width As Int, Height As Int)
 	Public DebugMessages As Boolean = False
+	Public DevelopmentMode As Boolean = True
 End Sub
 
 Public Sub FactorPosition(Left As Int, Top As Int) As LWElementPosition

@@ -22,7 +22,7 @@ Public Sub Initialize
 	aButton.InlineCSS = "border: 2px solid #ededed;"
 	aButton.Left = 2
 	
-	mPage.AddElement(aButton)
+	mPage.AddComponent(aButton)
 	mPage.Prepare
 End Sub
 
@@ -46,7 +46,8 @@ End Sub
 
 Private Sub bla_Click(Params As Map)
 	Log(Params)
-	aButton.Shake
+'	aButton.Shake
 	aButton.Label = "Bla " & Rnd(30, 1200)
+	aButton.SetPosition(Rnd(10,40), Rnd(40,50))
 '	aButton.Left = Rnd(0, 200)
 End Sub

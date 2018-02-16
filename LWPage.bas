@@ -10,22 +10,22 @@ Version=6
 'Website: https://miranasolutions.com
 '----------------------------------------
 
-'Class module
+'Page Web Component
 Sub Class_Globals
 	Public Title As String
 
 	'Private
 	Private mWS As WebSocket
-	Private mElements As List
+	Private mComponents As List 'The list of components of the page
 	Private isNew = True As Boolean
-	Private isGenerated = False As Boolean
 	Private mApp As LWApp
 End Sub
 
-'Initializes the object. You can add parameters to this method if needed.
+'Initializes the page web component
+'WebApp = web app
 Public Sub Initialize(WebApp As LWApp)
 	mApp = WebApp
-	mElements.Initialize
+	mComponents.Initialize
 End Sub
 
 Public Sub SetWS(WS As WebSocket)
@@ -40,7 +40,7 @@ End Sub
 
 'Register all page events
 Public Sub RegisterEvents
-	For Each webElement As Object In mElements
+	For Each webElement As Object In mComponents
 		If SubExists(webElement, "registerEvents") Then
 			CallSub(webElement, "registerEvents")
 		End If
@@ -58,9 +58,9 @@ Public Sub ProcessEvents(CallBack As Object, Params As Map)
 End Sub
 
 'Add a LW web element to the page
-Public Sub AddElement(WebElement As Object)
-	CallSub2(WebElement, "SetPC", Me)
-	mElements.Add(WebElement)
+Public Sub AddComponent(WebComponent As Object)
+	CallSub2(WebComponent, "SetPC", Me)
+	mComponents.Add(WebComponent)
 End Sub
 
 Public Sub JSEval(Script As String)
@@ -68,13 +68,16 @@ Public Sub JSEval(Script As String)
 	mWS.Flush
 End Sub
 
+Public Sub GetComponentsList As List
+	Return mComponents
+End Sub
+
 'Prepare the page to be used
 Public Sub Prepare
 	If isNew Then
-		Dim rHTML As String = generateHTMLLayout(mElements)
+		Dim rHTML As String = generateHTMLLayout(mComponents)
 	 File.WriteString(mApp.LWServer.StaticFilesFolder, "index.html", rHTML)
 	 isNew = False
-	 isGenerated = True
 	End If
 End Sub
 
@@ -92,6 +95,18 @@ Private Sub generateHTMLLayout(WebElementList As List) As String
 		End If
 	Next
 	
+	'Now if the developmode is on then we need to setup some things
+	
+	Dim metaNoCahe, jqueryFile, w2uiCSSFile, w2uiJSFile As String
+	If LWAppGlobals.DevelopmentMode Then
+		metaNoCahe = $"<meta http-equiv="Pragma" content="no-cache">"$
+		'jqueryFile = to do
+		w2uiCSSFile = "w2ui-1.5.rc1.css"
+		w2uiJSFile = "w2ui-1.5.rc1.js"
+	Else
+		w2uiCSSFile = "w2ui-1.5.rc1.min.css"
+		w2uiJSFile = "w2ui-1.5.rc1.min.js"
+	End If
 
 	'Write the return html
 	returnHTML = _
@@ -100,8 +115,9 @@ $"<!DOCTYPE html>
 <head>
 	<title>${mApp.Title & " - " & Title}</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
-	<meta http-equiv="Pragma" content="no-cache">
+	${metaNoCahe}
 	<link rel="shortcut icon" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="/${w2uiCSSFile}">
 </head>
 <body>	
 <div id="lw-app" style="position:absolute;">
@@ -112,6 +128,7 @@ ${webSB.ToString}
 	<script src="/b4j_ws.js"></script>
 
 	<script src="/jquery-ui.js"></script>
+	<script src="/${w2uiJSFile}"></script>	
     <script>
     //connect To the web socket when the page Is ready.
     $( document ).ready(function() {
